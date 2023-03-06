@@ -27,7 +27,7 @@ const Search: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
         <main className="flex flex-col text-neutral-500">
-          <div id="myteams" className="flex items-center justify-center w-full">Hi {username}, do you want to find a profile ?</div>
+          <div id="myprofile" className="flex items-center justify-center w-full">Hi {username}, do you want to find a profile ?</div>
         </main>
     </>
   );

@@ -11,50 +11,9 @@ body {
   margin: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #e6d8ae;
+  background-color: #17232E;
   font-size: 0.9em;
   font-family: 'Tilt Warp', cursive;
-}
-
-select {
-  width: 100px;
-  padding: 5px;
-  border: 0;
-  background-color: #F3F3F3;
-  color: #777;
-  box-shadow: 1px 4px 10px 1px #aaa;
-  outline-color: #E3936E;
-  /* needed */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  /* SVG background image */
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23000000%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E");
-    background-size: .6em;
-    background-position: calc(100% - 0.8em) center;
-    background-repeat: no-repeat;
-}
-
-
-progress::-webkit-progress-bar {
-  background-color: #ab977e;
-}
-
-progress::-webkit-progress-value {
-  background-color: #E3936E;
-  box-shadow: 0px 0px 10px white;
-}
-
-#myta {
-  background-color: transparent;
-  outline-color: #E3936E;
-}
-
-#myta::placeholder {
-  color: #777;
-  font-size: 2em;
-  padding-top: 2rem;
-
 }
 
 #__next {
@@ -97,7 +56,7 @@ progress::-webkit-progress-value {
   width: 100%;
   border: none;
   background-color: #f3f3f3;
-  outline-color: #E3936E;
+  outline-color: #000000;
   box-shadow: 1px 4px 10px 1px #aaa;
 }
 
@@ -117,12 +76,12 @@ progress::-webkit-progress-value {
   color: #eee;
   font-weight: 700;
   box-shadow: 1px 4px 10px 1px #aaa;
-  background: linear-gradient(to right, #E3936E 0%, #F5BC6F 100%);
+  background: linear-gradient(to right, #000000 0%, #61C4D1 100%);
 }
 
 .mybuttons:hover {
   letter-spacing: 0.07rem;
-  background: linear-gradient(to right, #E3936E 0%, #E3936E 100%);
+  background: linear-gradient(to right, #000000 0%, #000000 100%);
 }
 
 .mymessages {
@@ -135,11 +94,11 @@ progress::-webkit-progress-value {
 .navbar {
   display: flex;
   align-items: center;
-  background: linear-gradient(to right, #E3936E 0%, #F5BC6F 100%);
+background-color: #61C4D1;
   color: white;
-  text-shadow: 0px 0px 5px #E3936E, 
-               0px 0px 10px #E3936E, 
-			         0px 0px 15px #E3936E;
+  text-shadow: 0px 0px 5px #777, 
+               0px 0px 10px #777, 
+			         0px 0px 15px #777;
   letter-spacing: 0.07rem;
   position: sticky;
   top: 0;
@@ -163,10 +122,10 @@ progress::-webkit-progress-value {
 }
 
 .navbar__item:hover {
-  color: #777;
+  color: #17232E;
 }
 
-#myteams {
+#myprofile {
   font-size: 200%;
   color: white;
   text-shadow: 0px 0px 5px #777, 
@@ -174,25 +133,4 @@ progress::-webkit-progress-value {
 			         0px 0px 15px #777;
   letter-spacing: 0.07rem;
   padding: 32px 0px 10px 0px;
-}
-
-#teaminfoz {
-  font-size: 100%;
-  color: white;
-  text-shadow: 0px 0px 5px #777, 
-               0px 0px 10px #777, 
-			         0px 0px 15px #777;
-  letter-spacing: 0.07rem;
-}
-
-#miniteam {
-  background: linear-gradient(to left, #E3936E 0%, #F5BC6F 100%);
-}
-
-#compgra {
-  text-shadow: 0px 0px 5px #777, 
-  0px 0px 10px #777, 
-  0px 0px 15px #777;
-  color: #e6d8ae;
-  background-color: #433731;
 }

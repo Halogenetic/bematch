@@ -15,11 +15,11 @@ export const Navbar = ({ token, handleSignOut }: NavbarProps) => {
 
   return (
     <header className="navbar h-[10%]">
-      <Link href={"/"} className="navbar__title">
-        BeMatch
-      </Link>
       {!isLoggedIn && (
         <>
+          <Link href={"/"} className="navbar__title">
+             BeMatch
+          </Link>
           <Link href={"/"} className="navbar__item">
             Sign Up
           </Link>
@@ -30,6 +30,9 @@ export const Navbar = ({ token, handleSignOut }: NavbarProps) => {
       )}
       {isLoggedIn && (
         <>
+          <Link href={"/myprofile"} className="navbar__title">
+             BeMatch
+          </Link>
           <Link href={"/myprofile"} className="navbar__item">
             My Profile
           </Link>
