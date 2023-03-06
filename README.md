@@ -1,4 +1,4 @@
-## My first T3 app project
+## T3 App group project @ becode
 - Next.JS
 - React
 - Tailwind CSS
