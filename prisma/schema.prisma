@@ -12,7 +12,7 @@ model User {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
   email      String    @unique
   password   String
-  isActive   Boolean   @default(true)
+  isActive   Boolean   @default(false)
   profile    Profile?
 }
 

@@ -19,15 +19,15 @@ function Field({ name, value, onChange, children, type }: FieldProps) {
 }
 
 function SignIn({ handleSignIn }: { handleSignIn: (token: string) => void }) {
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userMessage, setUserMessage] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     switch (name) {
-      case 'name2':
-        setName(value);
+      case 'email2':
+        setEmail(value);
         break;
       case 'password2':
         setPassword(value);
@@ -42,7 +42,7 @@ function SignIn({ handleSignIn }: { handleSignIn: (token: string) => void }) {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-    const token = await signInMutation.mutateAsync({ name, password });
+    const token = await signInMutation.mutateAsync({ email, password });
     setUserMessage('You have been signed in successfully');
     localStorage.setItem('token', token);
     handleSignIn(token);
@@ -54,8 +54,8 @@ function SignIn({ handleSignIn }: { handleSignIn: (token: string) => void }) {
   return (
 
     <form className='myforms' onSubmit={handleSubmit}>
-        <Field name="name2" value={name} onChange={handleChange} type="text">
-            Name
+        <Field name="email2" value={email} onChange={handleChange} type="text">
+            Email
         </Field>
         <Field
             name="password2"

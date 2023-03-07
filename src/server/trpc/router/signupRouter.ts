@@ -8,7 +8,7 @@ const KEY = 'azertyuiopqsdfghjklmwxcvbn';
 
 export const signupRouter = router({
   signupForm: publicProcedure
-    .input(z.object({ name: z.string(), password: z.string(), newsletter: z.boolean() }))
+    .input(z.object({ email: z.string(), password: z.string()}))
     .mutation( async ({ input, ctx }) => {
         const users = await ctx.prisma.user.create({
           data: {
@@ -18,10 +18,10 @@ export const signupRouter = router({
         return users;
     }),
   signin: publicProcedure
-    .input(z.object({ name: z.string(), password: z.string() }))
+    .input(z.object({ email: z.string(), password: z.string() }))
     .mutation(async ({ input, ctx }) => {
-      const user = await ctx.prisma.user.findFirst({
-        where: { name: input.name },
+      const user = await ctx.prisma.user.findUnique({
+        where: { email: input.email },
       });
       if (!user) {
         throw new Error("Invalid credentials");
@@ -30,16 +30,16 @@ export const signupRouter = router({
       if (!isMatch) {
         throw new Error("Invalid credentials");
       }
-      const token = jwt.sign({ username: input.name }, KEY);
+      const token = jwt.sign({ username: input.email }, KEY);
       return token;
     }),
-  getUsers: publicProcedure
-    .query(async ({ ctx }) => {
-      const users = await ctx.prisma.user.findMany({
-        select: {
-          name: true,
-        },
-      });
-      return users.map((user) => user.name);
-    }),
+  // getUsers: publicProcedure
+  //   .query(async ({ ctx }) => {
+  //     const users = await ctx.prisma.user.findMany({
+  //       select: {
+  //         email: true,
+  //       },
+  //     });
+  //     return users.map((user) => user.email);
+  //   }),
 });

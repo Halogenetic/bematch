@@ -19,48 +19,24 @@ function Field({ name, value, onChange, children, type }: FieldProps) {
   );
 }
 
-interface CheckboxProps {
-  name: string;
-  value: boolean;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  children: React.ReactNode;
-}
-
-function Checkbox({ name, value, onChange, children }: CheckboxProps) {
-  return (
-    <div className='flex'>
-      <input className='mycheckboxes' type="checkbox" checked={value} onChange={onChange} id={name} name={name} />
-      <label className='mylabels' htmlFor={name}>{children}</label>
-    </div>
-  );
-}
-
 function Home() {
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [newsletter, setNewsletter] = useState(false);
-  const [termsAccepted, setTermsAccepted] = useState(false);
   const [passwordMasked, setPasswordMasked] = useState(true);
   const [userMessage, setUserMessage] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, type, checked, value } = e.target;
+    const { name, value } = e.target;
     switch (name) {
-      case 'name':
-        setName(value);
+      case 'email':
+        setEmail(value);
         break;
       case 'password':
         setPassword(value);
         break;
       case 'passwordConfirm':
         setPasswordConfirm(value);
-        break;
-      case 'newsletter':
-        setNewsletter(checked);
-        break;
-      case 'termsAccepted':
-        setTermsAccepted(checked);
         break;
       default:
         break;
@@ -75,10 +51,10 @@ function Home() {
     return hashedPassword;
   };
 
-  const handleSubmitForm = async (name: string, password: string, newsletter: boolean) => {
+  const handleSubmitForm = async (email: string, password: string) => {
     try {
       const hashedPassword = await hashPassword(password);
-      await signupFormMutation.mutateAsync({ name, password: hashedPassword, newsletter });
+      await signupFormMutation.mutateAsync({ email, password: hashedPassword});
       setUserMessage('Form submitted successfully');
       router.push("/signin");
     } catch (error) {
@@ -86,33 +62,31 @@ function Home() {
     }
   };
 
-  const { data: existingUsers } = trpc.signup.getUsers.useQuery();
-  const checkNameExists = (name: string): boolean => {
-    if (!existingUsers) {
-      return false;
-    }
-    return existingUsers.includes(name);
-  };
+  // const { data: existingUsers } = trpc.signup.getUsers.useQuery();
+  // const checkNameExists = (email: string): boolean => {
+  //   if (!existingUsers) {
+  //     return false;
+  //   }
+  //   return existingUsers.includes(email);
+  // };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== passwordConfirm) {
       setUserMessage("Passwords don't match");
-    } else if (!termsAccepted) {
-      setUserMessage('You have to accept our terms and conditions');
-    } else if (name.length < 1 || name.length > 16) {
-      setUserMessage('Name should be between 1 and 16 characters');
+    } else if (email.length < 1 || email.length > 30) {
+      setUserMessage('Invalid email adress');
     } else if (password.length < 6) {
       setUserMessage('Password should be at least 6 characters long');
     } else {
-      const nameExists = checkNameExists(name);
-      if (nameExists) {
-        setUserMessage('Name already exists');
-      } else {
+      // const nameExists = checkNameExists(email);
+      // if (nameExists) {
+      //   setUserMessage('Email adress already exists');
+      // } else {
         setUserMessage('Account successfully created');
-        const data = JSON.stringify({ name, password, newsletter });
-        handleSubmitForm(name, password, newsletter);
-      }
+        const data = JSON.stringify({ email, password});
+        handleSubmitForm(email, password);
+      // }
     }
   };
 
@@ -122,8 +96,8 @@ function Home() {
 
     return (
       <form className='myforms' onSubmit={handleSubmit}>
-        <Field name="name" value={name} onChange={handleChange} type="text">
-          Name
+        <Field name="email" value={email} onChange={handleChange} type="text">
+          Email
         </Field>
         <Field
           name="password"
@@ -148,12 +122,6 @@ function Home() {
           </label>
         </div >
         <div>
-          <Checkbox name="newsletter" value={newsletter} onChange={handleChange}>
-            Subscribe to our newsletter
-          </Checkbox>
-          <Checkbox name="termsAccepted" value={termsAccepted} onChange={handleChange}>
-            Accept our terms and conditions
-          </Checkbox>
         </div>
         <div>
         <div className='mymessages'>{userMessage}</div>
