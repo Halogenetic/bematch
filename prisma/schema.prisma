@@ -1,24 +1,27 @@
-generator client {
-  provider = "prisma-client-js"
-}
-
 datasource db {
-  provider = "mysql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
-model user {
-  id         Int     @id @default(autoincrement())
-  name       String  @db.VarChar(16)
-  password   String  @db.VarChar(60)
-  newsletter Boolean @default(false)
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["mongodb"]
 }
 
-model team {
-  id         Int     @id @default(autoincrement())
-  author     String  @db.VarChar(16)
-  title      String  @db.VarChar(60)
-  tier       String  @db.VarChar(7)
-  ispublic   Boolean @default(true)
-  paste      String  @db.VarChar(2000)
+model User {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  email      String    @unique
+  password   String
+  isActive   Boolean   @default(true)
+  profile    Profile?
 }
+
+model Profile {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  firstname  String
+  lastname   String
+  promotion  String
+  user       User      @relation(fields: [userId], references: [id])
+  userId     String    @unique @db.ObjectId
+  tags       String[]
+} 
