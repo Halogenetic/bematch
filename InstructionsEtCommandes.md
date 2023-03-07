@@ -8,3 +8,6 @@
     Ajouter les models dans la database :
     - npx prisma generate
     - npx prisma db push
+
+    Lancer le projet en développement à l'url: http://localhost:3000
+    - npm run dev
