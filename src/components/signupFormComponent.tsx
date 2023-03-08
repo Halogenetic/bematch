@@ -84,7 +84,7 @@ function Home() {
       //   setUserMessage('Email adress already exists');
       // } else {
         setUserMessage('Account successfully created');
-        const data = JSON.stringify({ email, password});
+        // const data = JSON.stringify({ email, password});
         handleSubmitForm(email, password);
       // }
     }

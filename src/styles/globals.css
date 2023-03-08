@@ -134,3 +134,13 @@ background-color: #61C4D1;
   letter-spacing: 0.07rem;
   padding: 32px 0px 10px 0px;
 }
+
+#edit {
+  border: #61C4D1 solid 3px;
+}
+
+#edit:hover {
+  border: #61C4D1 solid 3px;
+  background-color: #61C4D1;
+  color: white;
+}

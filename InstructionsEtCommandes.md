@@ -5,6 +5,9 @@
 
 
 # COMMANDES
+    Installer les dépendances :
+    - npm install
+
     Ajouter les models dans la database :
     - npx prisma generate
     - npx prisma db push

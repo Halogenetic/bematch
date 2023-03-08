@@ -2,11 +2,11 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import jwt from "jsonwebtoken";
-import Link from "next/link";
+import Edit from "../components/profileFormComponent";
 
 const KEY = 'azertyuiopqsdfghjklmwxcvbn';
 
-const Myprofile: NextPage = () => {
+const Editprofile: NextPage = () => {
 
   const [username, setUsername] = useState('');
 
@@ -28,11 +28,16 @@ const Myprofile: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
         <main className="flex flex-col items-center justify-center text-neutral-500">
-          <div id="myprofile" className="flex items-center justify-center w-full">Hi {username}, here is your profile !</div>
-        <Link href={"/editprofile"} id="edit" className="bg-white w-[10%] text-center p-1">EDIT YOUR PROFILE</Link>
+          <div id="myprofile" className="flex items-center justify-center w-full">Hi {username}</div>
+          <div id="feedback-form">
+          <h2 className="header">Edit your profile</h2>
+          <div>
+            <Edit/>
+          </div>
+        </div>
         </main>
     </>
   );
 };
 
-export default Myprofile;
+export default Editprofile;
