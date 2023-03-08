@@ -14,3 +14,6 @@
 
     Lancer le projet en développement à l'url: http://localhost:3000
     - npm run dev
+
+    Kill le port:3000 s'il est utilisé :
+    - sudo kill -9 $(sudo lsof -t -i:3000)

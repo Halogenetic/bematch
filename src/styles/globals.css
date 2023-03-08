@@ -77,10 +77,11 @@ body {
   font-weight: 700;
   box-shadow: 1px 4px 10px 1px #aaa;
   background: linear-gradient(to right, #000000 0%, #61C4D1 100%);
+  transition-duration: 1s;
 }
 
 .mybuttons:hover {
-  letter-spacing: 0.07rem;
+  letter-spacing: 0.06rem;
   background: linear-gradient(to right, #000000 0%, #000000 100%);
 }
 
@@ -143,4 +144,26 @@ background-color: #61C4D1;
   border: #61C4D1 solid 3px;
   background-color: #61C4D1;
   color: white;
+}
+
+.addbutton {
+  display: block;
+  height: 36px;
+  border: none;
+  color: #eee;
+  font-weight: 700;
+  box-shadow: 1px 4px 10px 1px #aaa;
+  background: linear-gradient(to right, #000000 0%, #61C4D1 100%);
+}
+
+.addbutton:hover {
+  background: linear-gradient(to right, #000000 0%, #000000 100%);
+}
+
+#tag {
+  background-color: #61C4D1;
+  color: black;
+  padding: 5px;
+  border-radius: 25%;
+  border: solid black 2px;
 }
