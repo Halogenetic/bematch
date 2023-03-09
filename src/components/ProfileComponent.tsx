@@ -56,6 +56,7 @@ function ProfileComponent() {
       <div id="myprofilebox" className='flex flex-col items-center justify-center'>
         <div id='userinfos' className='text-center text-white w-full' style={{ backgroundColor: data.data.isActive ? 'green' : 'red' }}>{data.data.isActive ? 'Public' : 'Private'}</div>
         <div id='userinfos' className='text-center text-black'>{data.data.firstname} {data.data.lastname}</div>
+        <div id='userinfos' className='text-center text-black'>{username}</div>
         <div id='userinfos' className='text-center text-black'>{data.data.promotion}</div>
         <div className='flex flex-wrap mt-[30px]'>{data.data.tags?.map((tag: string | null | undefined) => tag ? <div id='mytags'>{tag}</div> : null)}</div>
       </div>
