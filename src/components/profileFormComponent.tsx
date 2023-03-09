@@ -1,8 +1,9 @@
 import router from 'next/router';
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { trpc } from '../utils/trpc';
 import CustomSelect from './selectComponent';
 import options from './options';
+import jwt from "jsonwebtoken";
 
 interface FieldProps {
   name: string;
@@ -36,6 +37,9 @@ interface CheckboxProps {
     );
   }
 
+  const KEY = 'azertyuiopqsdfghjklmwxcvbn';
+
+
 function Edit() {
   const [lastname, setLastname] = useState('');
   const [firstname, setFirstname] = useState('');
@@ -44,6 +48,18 @@ function Edit() {
   const [isActive, setisActive] = useState(true);
   const [isPrivate, setIsPrivate] = useState(false);
   const [tags, setTags] = useState<string[]>([]);
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken = jwt.verify(token, KEY);
+      if (typeof decodedToken !== 'string') {
+        const username = decodedToken.username
+        setUsername(username);
+      }
+    }
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -64,9 +80,9 @@ function Edit() {
 
   const editFormMutation = trpc.signup.editForm.useMutation()
 
-  const handleSubmitForm = async (lastname: string, firstname: string, promotion: string, isActive: boolean, tags: string[]) => {
+  const handleSubmitForm = async (username: string, lastname: string, firstname: string, promotion: string, isActive: boolean, tags: string[]) => {
     try {
-      await editFormMutation.mutateAsync({ lastname, firstname, promotion, isActive, tags });
+      await editFormMutation.mutateAsync({ username, lastname, firstname, promotion, isActive, tags });
       setUserMessage('Form submitted successfully');
       router.push("/myprofile");
     } catch (error) {
@@ -80,7 +96,7 @@ function Edit() {
       setUserMessage('Invalid fields');
     } else {
         setUserMessage('Profile edited successfully');
-        handleSubmitForm( lastname, firstname, promotion, isActive, tags);
+        handleSubmitForm( username, lastname, firstname, promotion, isActive, tags);
     }
   };
 
@@ -101,7 +117,7 @@ function Edit() {
   const handleOptionChange = (option: { label: string; value: string } | null) => {
     setSelectedOption(option);
   };
-  
+
   const handleAddTag = () => {
     if (selectedOption && !tags.includes(selectedOption.value)) {
       setTags([...tags, selectedOption.value]);
