@@ -70,7 +70,7 @@ function Edit() {
     }
   };
 
-  const editFormMutation = trpc.signup.editpForm.useMutation()
+  const editFormMutation = trpc.signup.editForm.useMutation()
 
   const handleSubmitForm = async (lastname: string, firstname: string, promotion: string, isActive: boolean, tags: string[]) => {
     try {
