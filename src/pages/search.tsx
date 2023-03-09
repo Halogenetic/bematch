@@ -2,12 +2,27 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import jwt from "jsonwebtoken";
+import CustomSelect from "../components/selectComponent";
+import options from "../components/options";
+import { trpc } from '../utils/trpc';
 
 const KEY = 'azertyuiopqsdfghjklmwxcvbn';
+
+interface User {
+  id: string;
+  email: string;
+  firstname: string;
+  lastname: string;
+  promotion: string;
+  tags?: string[];
+  isActive: boolean;
+}
 
 const Search: NextPage = () => {
 
   const [username, setUsername] = useState('');
+  const [tags, setTags] = useState<string[]>([]);
+  const [userProfiles, setUserProfiles] = useState<User[]>([]);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -20,6 +35,32 @@ const Search: NextPage = () => {
     }
   }, []);
 
+  const [selectedOption, setSelectedOption] = useState<{ label: string; value: string } | null>(null);
+
+  const handleOptionChange = (option: { label: string; value: string } | null) => {
+    setSelectedOption(option);
+  };
+
+  const handleAddTag = () => {
+    if (selectedOption && !tags.includes(selectedOption.value)) {
+      setTags([...tags, selectedOption.value]);
+    }
+  };
+
+  const profilesQuery = trpc.signup.getProfilesByTags.useQuery(tags);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await profilesQuery.refetch();
+      if (result.data && Array.isArray(result.data)) {
+        setUserProfiles(result.data);
+        console.log('ok');
+      }
+    };
+    fetchData();
+  }, [tags]);
+
+
   return (
     <>
       <Head>
@@ -28,6 +69,36 @@ const Search: NextPage = () => {
       </Head>
         <main className="flex flex-col text-neutral-500">
           <div id="myprofile" className="flex items-center justify-center w-full">Hi {username}, do you want to find a profile ?</div>
+          <div className='flex flex-col items-center justify-center w-full'>
+            <div id="feedback-form">
+              <div className="flex items-center justify-center mt-[10%]">
+                <div className='w-3/4'>
+                  <CustomSelect name='custom-select' value={selectedOption} onChange={handleOptionChange} options={options} />
+                </div>
+                <div className='w-1/4'>
+                  <button id='addtags' type="button" className='addbutton w-[90%] ml-[10%]' onClick={handleAddTag}>ADD</button>
+                </div>
+              </div>
+              <div id='tags' className='flex flex-wrap items-center justify-center gap-[5px] w-full mt-5'>
+                {tags.map((tag, index) => (
+                  <div id='tag' className="tag" key={index}>
+                    {tag}
+                  </div>
+                ))}
+              </div>
+            </div>
+            {userProfiles.length > 0 && userProfiles.map((userProfile) => (
+              <div className="userProfile" key={userProfile.id}>
+                <div id="feedback-form">
+                  <div id='userinfos' className='text-black'>First Name: {userProfile.firstname}</div>
+                  <div id='userinfos' className='text-black'>Last Name: {userProfile.lastname}</div>
+                  <div id='userinfos' className='text-black'>Email: {userProfile.email}</div>
+                  <div id='userinfos' className='text-black'>Promotion: {userProfile.promotion}</div>
+                  <div className='flex flex-wrap mt-[30px]'>{userProfile.tags ? userProfile.tags.map((tag: string | null | undefined) => <div id='mytags'>{tag}</div>) : null}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </main>
     </>
   );

@@ -25,12 +25,14 @@ function Home() {
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [passwordMasked, setPasswordMasked] = useState(true);
   const [userMessage, setUserMessage] = useState('');
+  const [emailError, setEmailError] = useState(false); // add here 
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     switch (name) {
       case 'email':
         setEmail(value);
+        setEmailError(!isValidEmail(value)); // add here
         break;
       case 'password':
         setPassword(value);
@@ -42,6 +44,11 @@ function Home() {
         break;
     }
   };
+
+  const isValidEmail = (email: string): boolean => { // add this 
+    const emailPattern = /^[\w.-]+@[\w-]+.[\w.-]+$/;
+    return emailPattern.test(email);
+  }; 
 
   const signupFormMutation = trpc.signup.signupForm.useMutation()
 
@@ -95,7 +102,7 @@ function Home() {
 
     return (
       <form className='myforms' onSubmit={handleSubmit}>
-        <Field name="email" value={email} onChange={handleChange} type="text">
+        <Field name="email" value={email} onChange={handleChange} type="email">
           Email
         </Field>
         <Field

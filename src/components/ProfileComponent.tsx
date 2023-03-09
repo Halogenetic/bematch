@@ -56,7 +56,7 @@ function ProfileComponent() {
       <div id='userinfos' className='text-black'>First Name: {data.data.firstname}</div>
       <div id='userinfos' className='text-black'>Last Name: {data.data.lastname}</div>
       <div id='userinfos' className='text-black'>Promotion: {data.data.promotion}</div>
-      <div className='flex flex-wrap mt-[30px]'>{data.data.tags?.map((tag: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined) => <div id='mytags'>{tag}</div>)}</div>
+      <div className='flex flex-wrap mt-[30px]'>{data.data.tags?.map((tag: string | null | undefined) => <div id='mytags'>{tag}</div>)}</div>
     </div>
   );
 }

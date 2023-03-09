@@ -30,8 +30,8 @@ const Myprofile: NextPage = () => {
       </Head>
         <main className="flex flex-col items-center justify-center text-neutral-500">
           <div id="myprofile" className="flex items-center justify-center w-full">Hi {username}, here is your profile !</div>
+          <Link href={"/editprofile"} id="edit" className="bg-white w-[150px] text-center p-1 mb-[20px]">EDIT YOUR PROFILE</Link>
           <Profile />
-        <Link href={"/editprofile"} id="edit" className="bg-white w-[150px] text-center p-1 mt-[30px]">EDIT YOUR PROFILE</Link>
         </main>
     </>
   );

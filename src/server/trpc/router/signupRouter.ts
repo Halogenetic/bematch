@@ -63,4 +63,16 @@ export const signupRouter = router({
       }
       return user;
     }),
+    getProfilesByTags: publicProcedure
+    .input(z.array(z.string()))
+    .query(async ({ input, ctx }) => {
+      const profiles = await ctx.prisma.user.findMany({
+        where: {
+          tags: {
+            hasSome: input
+          }
+        }
+      });
+      return profiles;
+    }),
 });
