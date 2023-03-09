@@ -41,25 +41,27 @@ const Search: NextPage = () => {
     setSelectedOption(option);
   };
 
-  const handleAddTag = () => {
-    if (selectedOption && !tags.includes(selectedOption.value)) {
-      setTags([...tags, selectedOption.value]);
-    }
-  };
-
   const profilesQuery = trpc.signup.getProfilesByTags.useQuery(tags);
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await profilesQuery.refetch();
       if (result.data && Array.isArray(result.data)) {
-        setUserProfiles(result.data);
-        console.log('ok');
+        const filteredProfiles = result.data.filter(profile => {
+          const profileTags = profile.tags || [];
+          return tags.every(tag => profileTags.includes(tag));
+        });
+        setUserProfiles(filteredProfiles);
       }
     };
     fetchData();
   }, [tags]);
 
+  const handleAddTag = () => {
+    if (selectedOption && !tags.includes(selectedOption.value)) {
+      setTags([...tags, selectedOption.value]);
+    }
+  };
 
   return (
     <>
@@ -94,7 +96,11 @@ const Search: NextPage = () => {
                   <div id='userinfos' className='text-black'>Last Name: {userProfile.lastname}</div>
                   <div id='userinfos' className='text-black'>Email: {userProfile.email}</div>
                   <div id='userinfos' className='text-black'>Promotion: {userProfile.promotion}</div>
-                  <div className='flex flex-wrap mt-[30px]'>{userProfile.tags ? userProfile.tags.map((tag: string | null | undefined) => <div id='mytags'>{tag}</div>) : null}</div>
+                  <div className='flex flex-wrap mt-[30px]'>
+                    {userProfile.tags ? userProfile.tags.map((tag: string | null | undefined, index: number) => (
+                      <div key={index} id='mytags'>{tag}</div>
+                    )) : null}
+                  </div>
                 </div>
               </div>
             ))}
