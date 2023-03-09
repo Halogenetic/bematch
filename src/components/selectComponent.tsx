@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import Select, { ActionMeta } from 'react-select';
 
 interface Option {

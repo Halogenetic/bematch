@@ -1,7 +1,8 @@
 import router from 'next/router';
-import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { trpc } from '../utils/trpc';
 import CustomSelect from './selectComponent';
+import options from './options';
 
 interface FieldProps {
   name: string;
@@ -34,13 +35,6 @@ interface CheckboxProps {
       </div>
     );
   }
-
-  const options = [
-    { label: 'HTML', value: 'HTML' },
-    { label: 'CSS', value: 'CSS' },
-    { label: 'Javascript', value: 'Javascript' },
-    { label: 'Git', value: 'Git' },
-  ];
 
   const KEY = 'azertyuiopqsdfghjklmwxcvbn';
 
