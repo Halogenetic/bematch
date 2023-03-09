@@ -123,7 +123,7 @@ background-color: #61C4D1;
 }
 
 .navbar__item:hover {
-  color: #17232E;
+  color: black;
 }
 
 #myprofile {
@@ -137,12 +137,14 @@ background-color: #61C4D1;
 }
 
 #edit {
-  border: #61C4D1 solid 3px;
+  border: #17232E solid 2px;
+  background-color: #61C4D1 ;
+  color: #17232E;
 }
 
 #edit:hover {
-  border: #61C4D1 solid 3px;
-  background-color: #61C4D1;
+  border: #61C4D1 solid 2px;
+  background-color: black;
   color: white;
 }
 
@@ -156,8 +158,23 @@ background-color: #61C4D1;
   background: linear-gradient(to right, #000000 0%, #61C4D1 100%);
 }
 
+.addbutton2 {
+  display: block;
+  height: 36px;
+  border: solid white 2px;
+  color: #17232E;
+  font-weight: 700;
+  background-color: #61C4D1;
+}
+
 .addbutton:hover {
   background: linear-gradient(to right, #000000 0%, #000000 100%);
+}
+
+.addbutton2:hover {
+  background: linear-gradient(to right, #000000 0%, #000000 100%);
+  color: #eee;
+
 }
 
 #tag {
@@ -169,9 +186,7 @@ background-color: #61C4D1;
 }
 
 #userinfos {
-  font-size: 120%;
-  box-shadow: 1px 4px 10px 1px #aaa;
-  margin-bottom: 10px;
+  font-size: 150%;
   padding: 10px;
 }
 
@@ -183,4 +198,31 @@ background-color: #61C4D1;
   border: solid black 2px;
   margin-left: 20px;
   margin-bottom: 10px;
+}
+
+#profilesbox {
+
+}
+
+#minibox {
+  height: 380px;
+  width: 380px;
+  margin: 0 auto;
+  background-color: #fcfcfc;
+  padding: 40px;
+  box-shadow: 1px 4px 10px 1px #aaa;
+  margin: 15px;
+}
+
+#searchfield {
+  width: 380px;
+  margin: 0 auto;
+  padding: 20px 50px 40px;
+}
+
+#myprofilebox {
+  width: 380px;
+  margin: 0 auto;
+  background-color: #fcfcfc;
+  box-shadow: 1px 4px 10px 1px #aaa;
 }

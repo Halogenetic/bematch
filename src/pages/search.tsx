@@ -70,15 +70,14 @@ const Search: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
         <main className="flex flex-col text-neutral-500">
-          <div id="myprofile" className="flex items-center justify-center w-full">Hi {username}, do you want to find a profile ?</div>
           <div className='flex flex-col items-center justify-center w-full'>
-            <div id="feedback-form">
+            <div id="searchfield">
               <div className="flex items-center justify-center mt-[10%]">
                 <div className='w-3/4'>
                   <CustomSelect name='custom-select' value={selectedOption} onChange={handleOptionChange} options={options} />
                 </div>
                 <div className='w-1/4'>
-                  <button id='addtags' type="button" className='addbutton w-[90%] ml-[10%]' onClick={handleAddTag}>ADD</button>
+                  <button id='addtags' type="button" className='addbutton2 w-[90%] ml-[10%]' onClick={handleAddTag}>ADD</button>
                 </div>
               </div>
               <div id='tags' className='flex flex-wrap items-center justify-center gap-[5px] w-full mt-5'>
@@ -89,21 +88,22 @@ const Search: NextPage = () => {
                 ))}
               </div>
             </div>
-            {userProfiles.length > 0 && userProfiles.map((userProfile) => (
-              <div className="userProfile" key={userProfile.id}>
-                <div id="feedback-form">
-                  <div id='userinfos' className='text-black'>First Name: {userProfile.firstname}</div>
-                  <div id='userinfos' className='text-black'>Last Name: {userProfile.lastname}</div>
-                  <div id='userinfos' className='text-black'>Email: {userProfile.email}</div>
-                  <div id='userinfos' className='text-black'>Promotion: {userProfile.promotion}</div>
-                  <div className='flex flex-wrap mt-[30px]'>
-                    {userProfile.tags ? userProfile.tags.map((tag: string | null | undefined, index: number) => (
-                      <div key={index} id='mytags'>{tag}</div>
-                    )) : null}
+            <div id="profilesbox" className="flex flex-wrap items-center justify-center w-[90%]">
+              {userProfiles.length > 0 && userProfiles.map((userProfile) => (
+                <div className="userProfile" key={userProfile.id}>
+                  <div id="minibox">
+                    <div id='userinfos' className='text-black'>{userProfile.firstname} {userProfile.lastname}</div>
+                    <div id='userinfos' className='text-black'>{userProfile.email}</div>
+                    <div id='userinfos' className='text-black'>{userProfile.promotion}</div>
+                    <div className='flex flex-wrap mt-[30px]'>
+                      {userProfile.tags ? userProfile.tags.map((tag: string | null | undefined, index: number) => (
+                        <div key={index} id='mytags'>{tag}</div>
+                      )) : null}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </main>
     </>
