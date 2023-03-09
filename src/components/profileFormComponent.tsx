@@ -2,7 +2,6 @@ import router from 'next/router';
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { trpc } from '../utils/trpc';
 import CustomSelect from './selectComponent';
-import jwt from "jsonwebtoken";
 
 interface FieldProps {
   name: string;
@@ -50,10 +49,9 @@ function Edit() {
   const [firstname, setFirstname] = useState('');
   const [promotion, setPromotion] = useState('');
   const [userMessage, setUserMessage] = useState('');
-  const [isPublic, setIsPublic] = useState(true);
+  const [isActive, setisActive] = useState(true);
   const [isPrivate, setIsPrivate] = useState(false);
   const [tags, setTags] = useState<string[]>([]);
-  const [user, setUser] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -74,9 +72,9 @@ function Edit() {
 
   const editFormMutation = trpc.signup.editpForm.useMutation()
 
-  const handleSubmitForm = async (lastname: string, firstname: string, promotion: string, isPublic: boolean, user: string) => {
+  const handleSubmitForm = async (lastname: string, firstname: string, promotion: string, isActive: boolean, tags: string[]) => {
     try {
-      await editFormMutation.mutateAsync({ lastname, firstname, promotion, isPublic, user });
+      await editFormMutation.mutateAsync({ lastname, firstname, promotion, isActive, tags });
       setUserMessage('Form submitted successfully');
       router.push("/myprofile");
     } catch (error) {
@@ -90,32 +88,21 @@ function Edit() {
       setUserMessage('Invalid fields');
     } else {
         setUserMessage('Profile edited successfully');
-        handleSubmitForm( lastname, firstname, promotion, isPublic, user);
+        handleSubmitForm( lastname, firstname, promotion, isActive, tags);
     }
   };
 
   const handlePublicChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { checked } = e.target;
-    setIsPublic(checked);
+    setisActive(checked);
     setIsPrivate(!checked);
   };
 
   const handlePrivateChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { checked } = e.target;
     setIsPrivate(checked);
-    setIsPublic(!checked);
+    setisActive(!checked);
   };
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decodedToken = jwt.verify(token, KEY);
-      if (typeof decodedToken !== 'string') {
-        const username = decodedToken.username.charAt(0).toUpperCase() + decodedToken.username.slice(1);
-        setUser(username);
-      }
-    }
-  }, []);
 
   const [selectedOption, setSelectedOption] = useState<{ label: string; value: string } | null>(null);
 
@@ -131,7 +118,7 @@ function Edit() {
   return (
     <form className='myforms' onSubmit={handleSubmit}>
       <div className="flex items-center justify-center gap-[15px] my-[10%]">
-        <Checkbox name="isPublic" value={isPublic} onChange={handlePublicChange}>
+        <Checkbox name="isActive" value={isActive} onChange={handlePublicChange}>
           Public
         </Checkbox>
         <Checkbox name="isPrivate" value={isPrivate} onChange={handlePrivateChange}>

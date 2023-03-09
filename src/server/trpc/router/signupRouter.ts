@@ -43,9 +43,9 @@ export const signupRouter = router({
   //     return users.map((user) => user.email);
   //   }),
     editpForm: publicProcedure
-    .input(z.object({ lastname: z.string(), firstname: z.string(), promotion: z.string(), isPublic: z.boolean(), user: z.string() }))
+    .input(z.object({ lastname: z.string(), firstname: z.string(), promotion: z.string(), isActive: z.boolean(), tags: z.array(z.string()) }))
     .mutation( async ({ input, ctx }) => {
-        const profile = await ctx.prisma.profile.create({
+        const profile = await ctx.prisma.user.updateMany({
           data: {
             ...input, 
           }
