@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import jwt from "jsonwebtoken";
 import Link from "next/link";
+import Profile from "../components/ProfileComponent";
 
 const KEY = 'azertyuiopqsdfghjklmwxcvbn';
 
@@ -29,6 +30,7 @@ const Myprofile: NextPage = () => {
       </Head>
         <main className="flex flex-col items-center justify-center text-neutral-500">
           <div id="myprofile" className="flex items-center justify-center w-full">Hi {username}, here is your profile !</div>
+          <Profile />
         <Link href={"/editprofile"} id="edit" className="bg-white w-[150px] text-center p-1">EDIT YOUR PROFILE</Link>
         </main>
     </>

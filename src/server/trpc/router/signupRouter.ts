@@ -52,4 +52,15 @@ export const signupRouter = router({
         })
         return profile;
     }),
+    getProfileByEmail: publicProcedure
+    .input(z.string())
+    .query(async ({ input, ctx }) => {
+      const user = await ctx.prisma.user.findUnique({
+        where: { email: input },
+      });
+      if (!user) {
+        throw new Error("User not found");
+      }
+      return user;
+    }),
 });

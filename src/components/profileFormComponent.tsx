@@ -36,8 +36,6 @@ interface CheckboxProps {
     );
   }
 
-  const KEY = 'azertyuiopqsdfghjklmwxcvbn';
-
 function Edit() {
   const [lastname, setLastname] = useState('');
   const [firstname, setFirstname] = useState('');
