@@ -62,13 +62,13 @@ function Home() {
     }
   };
 
-  // const { data: existingUsers } = trpc.signup.getUsers.useQuery();
-  // const checkNameExists = (email: string): boolean => {
-  //   if (!existingUsers) {
-  //     return false;
-  //   }
-  //   return existingUsers.includes(email);
-  // };
+  const { data: existingUsers } = trpc.signup.getUsers.useQuery();
+  const checkNameExists = (email: string): boolean => {
+    if (!existingUsers) {
+      return false;
+    }
+    return existingUsers.includes(email);
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -79,14 +79,13 @@ function Home() {
     } else if (password.length < 6) {
       setUserMessage('Password should be at least 6 characters long');
     } else {
-      // const nameExists = checkNameExists(email);
-      // if (nameExists) {
-      //   setUserMessage('Email adress already exists');
-      // } else {
+      const nameExists = checkNameExists(email);
+      if (nameExists) {
+        setUserMessage('Email adress already exists');
+      } else {
         setUserMessage('Account successfully created');
-        // const data = JSON.stringify({ email, password});
         handleSubmitForm(email, password);
-      // }
+      }
     }
   };
 

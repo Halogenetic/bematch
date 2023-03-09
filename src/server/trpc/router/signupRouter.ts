@@ -33,15 +33,15 @@ export const signupRouter = router({
       const token = jwt.sign({ username: input.email }, KEY);
       return token;
     }),
-  // getUsers: publicProcedure
-  //   .query(async ({ ctx }) => {
-  //     const users = await ctx.prisma.user.findMany({
-  //       select: {
-  //         email: true,
-  //       },
-  //     });
-  //     return users.map((user) => user.email);
-  //   }),
+  getUsers: publicProcedure
+    .query(async ({ ctx }) => {
+      const email = await ctx.prisma.user.findMany({
+        select: {
+          email: true,
+        },
+      });
+      return email.map((user) => user.email);
+    }),
     editForm: publicProcedure
     .input(z.object({ lastname: z.string(), firstname: z.string(), promotion: z.string(), isActive: z.boolean(), tags: z.array(z.string()) }))
     .mutation( async ({ input, ctx }) => {
