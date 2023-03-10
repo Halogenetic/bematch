@@ -58,7 +58,7 @@ function ProfileComponent() {
         <div id='userinfos' className='text-center text-black'>{data.data.firstname} {data.data.lastname}</div>
         <div id='userinfos' className='text-center text-black'>{username}</div>
         <div id='userinfos' className='text-center text-black'>{data.data.promotion}</div>
-        <div className='flex flex-wrap mt-[30px]'>{data.data.tags?.map((tag: string | null | undefined) => tag ? <div id='mytags'>{tag}</div> : null)}</div>
+        <div className='flex flex-wrap mt-[30px]'>{data.data.tags?.map((tag: string | null | undefined, index: number) => tag ? <div key={index} id='mytags'>{tag}</div> : null)}</div>
       </div>
     </div>
 

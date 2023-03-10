@@ -1,6 +1,8 @@
+import React from 'react'
 import { type NextPage } from "next";
 import Head from "next/head";
 import SignIn from "../components/signinFormComponent";
+import PropTypes from "prop-types";
 
 type SigninProps = {
   handleSignIn: (token: string) => void;
@@ -23,6 +25,10 @@ const Signin: NextPage<SigninProps> = ({ handleSignIn }) => {
       </main>
     </>
   );
+};
+
+Signin.propTypes = {
+  handleSignIn: PropTypes.func.isRequired,
 };
 
 export default Signin;

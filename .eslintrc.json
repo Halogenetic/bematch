@@ -7,5 +7,6 @@
   "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended", "plugin:react/recommended"],
   "rules": {
     "@typescript-eslint/consistent-type-imports": "warn"
-  }
+  },
+  "exclude": ["node_modules", "**/_document.js"]
 }
