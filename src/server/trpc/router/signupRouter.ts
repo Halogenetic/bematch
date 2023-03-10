@@ -15,8 +15,8 @@ export const signupRouter = router({
             ...input, 
           }
         })
-        return users;
-    }),
+        return JSON.parse(JSON.stringify(users));
+      }),
   signin: publicProcedure
     .input(z.object({ email: z.string(), password: z.string() }))
     .mutation(async ({ input, ctx }) => {
@@ -31,7 +31,7 @@ export const signupRouter = router({
         throw new Error("Invalid credentials");
       }
       const token = jwt.sign({ username: input.email }, KEY);
-      return token;
+      return JSON.parse(JSON.stringify(token));
     }),
   getUsers: publicProcedure
     .query(async ({ ctx }) => {
@@ -40,7 +40,8 @@ export const signupRouter = router({
           email: true,
         },
       });
-      return email.map((user) => user.email);
+      return JSON.parse(JSON.stringify(email.map((user) => user.email)));
+
     }),
     editForm: publicProcedure
     .input(z.object({ username: z.string(), lastname: z.string(), firstname: z.string(), promotion: z.string(), isActive: z.boolean(), tags: z.array(z.string()) }))
@@ -53,8 +54,8 @@ export const signupRouter = router({
             lastname: input.lastname, firstname: input.firstname, promotion: input.promotion, isActive: input.isActive, tags: input.tags 
           }
         })
-        return profile;
-    }),
+        return JSON.parse(JSON.stringify(profile));
+      }),
     getProfileByEmail: publicProcedure
     .input(z.string())
     .query(async ({ input, ctx }) => {
@@ -64,7 +65,7 @@ export const signupRouter = router({
       if (!user) {
         throw new Error("User not found");
       }
-      return user;
+      return JSON.parse(JSON.stringify(user));
     }),
     getProfilesByTags: publicProcedure
     .input(z.array(z.string()))
@@ -76,6 +77,6 @@ export const signupRouter = router({
           }
         }
       });
-      return profiles;
+      return JSON.parse(JSON.stringify(profiles));
     }),
 });
