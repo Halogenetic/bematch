@@ -103,6 +103,7 @@ background-color: #61C4D1;
   letter-spacing: 0.07rem;
   position: sticky;
   top: 0;
+  z-index: 9999;
 }
 
 .navbar__title {

@@ -25,14 +25,14 @@ function Home() {
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [passwordMasked, setPasswordMasked] = useState(true);
   const [userMessage, setUserMessage] = useState('');
-  const [emailError, setEmailError] = useState(false); // add here 
+  const [emailError, setEmailError] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     switch (name) {
       case 'email':
         setEmail(value);
-        setEmailError(!isValidEmail(value)); // add here
+        setEmailError(!isValidEmail(value));
         break;
       case 'password':
         setPassword(value);
@@ -45,8 +45,8 @@ function Home() {
     }
   };
 
-  const isValidEmail = (email: string): boolean => { // add this 
-    const emailPattern = /^[\w.-]+@[\w-]+.[\w.-]+$/;
+  const isValidEmail = (email: string): boolean => {
+    const emailPattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     return emailPattern.test(email);
   }; 
 
@@ -123,8 +123,8 @@ function Home() {
         </Field>
         <div className='pt-[5%]'>
           <label className='flex'>
-            <input className='mycheckboxes' type="checkbox" checked={passwordMasked} onChange={togglePasswordMask} />
-            <div className="mylabels"> Hide password </div>
+            <input className='mycheckboxes' type="checkbox" checked={!passwordMasked} onChange={togglePasswordMask} />
+            <div className="mylabels"> Show passwords </div>
           </label>
         </div >
         <div>

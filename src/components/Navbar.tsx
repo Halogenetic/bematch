@@ -20,6 +20,9 @@ export const Navbar = ({ token, handleSignOut }: NavbarProps) => {
           <Link href={"/"} className="navbar__title">
              BeMatch
           </Link>
+          <Link href={"/search"} className="navbar__item">
+            Find a learner
+          </Link>
           <Link href={"/"} className="navbar__item">
             Sign Up
           </Link>
@@ -33,11 +36,11 @@ export const Navbar = ({ token, handleSignOut }: NavbarProps) => {
           <Link href={"/myprofile"} className="navbar__title">
              BeMatch
           </Link>
-          <Link href={"/myprofile"} className="navbar__item">
-            My Profile
-          </Link>
           <Link href={"/search"} className="navbar__item">
             Find a learner
+          </Link>
+          <Link href={"/myprofile"} className="navbar__item">
+            My Profile
           </Link>
           <Link
             href={"/"}
