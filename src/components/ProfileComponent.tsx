@@ -19,10 +19,6 @@ function ProfileComponent() {
   const [username, setUsername] = useState('');
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
-
-  useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = jwt.verify(token, KEY);
