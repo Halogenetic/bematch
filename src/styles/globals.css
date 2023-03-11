@@ -197,7 +197,8 @@ background-color: #61C4D1;
   padding: 5px;
   border-radius: 25%;
   border: solid black 2px;
-  margin-left: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
   margin-bottom: 10px;
 }
 
@@ -207,6 +208,7 @@ background-color: #61C4D1;
 
 #minibox {
   height: 380px;
+  overflow: scroll;
   width: 380px;
   margin: 0 auto;
   background-color: #fcfcfc;
