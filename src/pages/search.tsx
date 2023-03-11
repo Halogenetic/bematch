@@ -64,6 +64,10 @@ const Search: NextPage = () => {
     }
   };
 
+  const handleClearTags = () => {
+    setTags([]);
+  };
+
   return (
     <>
       <Head>
@@ -74,11 +78,12 @@ const Search: NextPage = () => {
           <div className='flex flex-col items-center justify-center w-full'>
             <div id="searchfield">
               <div className="flex items-center justify-center mt-[10%]">
-                <div className='w-3/4'>
+                <div className='w-2/3'>
                   <CustomSelect name='custom-select' value={selectedOption} onChange={handleOptionChange} options={options} />
                 </div>
-                <div className='w-1/4'>
+                <div className='flex w-1/3'>
                   <button id='addtags' type="button" className='addbutton2 w-[90%] ml-[10%]' onClick={handleAddTag}>ADD</button>
+                  <button id='cleartags' type="button" className='addbutton2 w-[90%] ml-[10%]' onClick={handleClearTags}>CLEAR</button>
                 </div>
               </div>
               <div id='tags' className='flex flex-wrap items-center justify-center gap-[5px] w-full mt-5'>
