@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { router, publicProcedure, protectedProcedure } from "../trpc";
+import { router, publicProcedure } from "../trpc";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -7,7 +7,7 @@ const KEY = 'azertyuiopqsdfghjklmwxcvbn';
 
 
 export const signupRouter = router({
-  signupForm: protectedProcedure
+  signupForm: publicProcedure
     .input(z.object({ email: z.string(), password: z.string()}))
     .mutation( async ({ input, ctx }) => {
         const users = await ctx.prisma.user.create({
@@ -17,7 +17,7 @@ export const signupRouter = router({
         })
         return JSON.parse(JSON.stringify(users));
       }),
-  signin: protectedProcedure
+  signin: publicProcedure
     .input(z.object({ email: z.string(), password: z.string() }))
     .mutation(async ({ input, ctx }) => {
       const user = await ctx.prisma.user.findUnique({
@@ -33,7 +33,7 @@ export const signupRouter = router({
       const token = jwt.sign({ username: input.email }, KEY);
       return JSON.parse(JSON.stringify(token));
     }),
-  getUsers: protectedProcedure
+  getUsers: publicProcedure
     .query(async ({ ctx }) => {
       const email = await ctx.prisma.user.findMany({
         select: {
@@ -43,7 +43,7 @@ export const signupRouter = router({
       return JSON.parse(JSON.stringify(email.map((user) => user.email)));
 
     }),
-    editForm: protectedProcedure
+    editForm: publicProcedure
     .input(z.object({ username: z.string(), lastname: z.string(), firstname: z.string(), promotion: z.string(), isActive: z.boolean(), tags: z.array(z.string()) }))
     .mutation( async ({ input, ctx }) => {
         const profile = await ctx.prisma.user.update({
@@ -56,7 +56,7 @@ export const signupRouter = router({
         })
         return JSON.parse(JSON.stringify(profile));
       }),
-    getProfileByEmail: protectedProcedure
+    getProfileByEmail: publicProcedure
     .input(z.string())
     .query(async ({ input, ctx }) => {
       const user = await ctx.prisma.user.findUnique({
@@ -67,7 +67,7 @@ export const signupRouter = router({
       }
       return JSON.parse(JSON.stringify(user));
     }),
-    getProfilesByTags: protectedProcedure
+    getProfilesByTags: publicProcedure
     .input(z.array(z.string()))
     .query(async ({ input, ctx }) => {
       const profiles = await ctx.prisma.user.findMany({
